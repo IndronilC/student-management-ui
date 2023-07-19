@@ -6,18 +6,23 @@ export class RegisterStudentPage extends React.Component{
             <div>
                 <h1>Register Student</h1>
                 <div>
-                  <input placeholder="Please Enter Student Name"/>
+                     <label>Please Enter Student Name: </label>
+                     <input placeholder="Please Enter Student Name"/>
                 </div>
-                <div>
+                 <div>
+                    <label>Please Enter Course Name: </label>
                     <input placeholder="Please Enter Course" />
                 </div>
                 <div>
-                    <input placeholder="Please Enter Specialization" />
+                  <label>Please Enter Specialization Name: </label>
+                  <input placeholder="Please Enter Specialization" />
                 </div>
                 <div>
+                 <label>Please Enter Percentage Name: </label>
                     <input placeholder="Please Enter Percentage" />
                 </div>
                 <div>
+                    <label>Please Enter Department Name: </label>
                     <input placeholder="Please Enter Department Name" />
                 </div>
             </div>

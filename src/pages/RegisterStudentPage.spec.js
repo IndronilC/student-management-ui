@@ -10,7 +10,7 @@ describe('RegisterStudentPage',() => {
            const header = container.querySelector('h1')
            expect(header).toHaveTextContent('Register Student')
         });    
-
+        
         it('has input for student full name', () => {
             const {queryByPlaceholderText} = render(<RegisterStudentPage />)
             const displayStudentNameInput = queryByPlaceholderText('Please Enter Student Name')
