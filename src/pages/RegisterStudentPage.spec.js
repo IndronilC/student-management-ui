@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { getByText, render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { RegisterStudentPage } from './RegisterStudentPage';
 
@@ -10,7 +10,38 @@ describe('RegisterStudentPage',() => {
            const header = container.querySelector('h1')
            expect(header).toHaveTextContent('Register Student')
         });    
-        
+
+         it('has label for please enter student name', () => {
+            const{container} = render(<RegisterStudentPage />)
+            const label = container.querySelector('label')
+            expect(label).toHaveTextContent('Please Enter Student Name:');
+
+        });
+
+        it('has label for enter course name', () => {
+            const {getByText} = render(<label>Please Enter Course Name:</label>)
+            expect(getByText("Please Enter Course Name:")).toBeTruthy
+ 
+         });
+
+         it('has label for enter specialization name', () => {
+            const {getByText} = render(<label>Please Enter Specialization Name:</label>)
+            expect(getByText("Please Enter Specialization Name:")).toBeTruthy
+ 
+         });
+
+         it('has label for enter percentage', () => {
+            const {getByText} = render(<label>Please Enter Your Percentage:</label>)
+            expect(getByText("Please Enter Your Percentage:")).toBeTruthy
+ 
+         });
+
+         it('has label for enter percentage', () => {
+            const {getByText} = render(<label>Please Enter your Department:</label>)
+            expect(getByText("Please Enter your Department:")).toBeTruthy
+ 
+         });
+             
         it('has input for student full name', () => {
             const {queryByPlaceholderText} = render(<RegisterStudentPage />)
             const displayStudentNameInput = queryByPlaceholderText('Please Enter Student Name')
