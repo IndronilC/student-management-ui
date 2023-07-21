@@ -77,6 +77,14 @@ describe('RegisterStudentPage',() => {
 
         });
 
+        it('has button for register student submission', () => {
+            const {container} = render(<RegisterStudentPage />)
+            const submitButton = container.querySelector('button')
+            expect(submitButton).toBeInTheDocument();
+        });
+
+        
+
         
 
 

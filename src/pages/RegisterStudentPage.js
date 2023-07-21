@@ -25,6 +25,9 @@ export class RegisterStudentPage extends React.Component{
                     <label>Please Enter Your Department:</label> 
                    <input placeholder="Please Enter Department Name" />
                 </div>
+                <div>
+                    <button> Register New Student </button>
+                </div>
             </div>
 
             
