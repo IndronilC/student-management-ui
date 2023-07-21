@@ -2,11 +2,24 @@ import React from "react";
 
 export class RegisterStudentPage extends React.Component{
     state = {
-        displayName: ''
+        displayStudentName: '',
+        displayCourseName: '',
+        displaySpecializationName: ''
+
     };
-    onChangeDisplayName = (event) => {
+    onChangeDisplayStudentName = (event) => {
         const value = event.target.value;
-        this.setState({displayName: value});
+        this.setState({displayStudentName: value});
+    };
+
+    onChangeDisplayCourseName = (event) => {
+        const value = event.target.value;
+        this.setState({displayCourseName: value});
+    };
+
+    onChangeDisplaySpecializationName = (event) => {
+        const value = event.target.value;
+        this.setState({displaySpecializationName: value});
     };
     render(){
         return(
@@ -14,16 +27,18 @@ export class RegisterStudentPage extends React.Component{
                 <h1>Register Student</h1>
                 <div>
                      <label>Please Enter Student Name:</label>
-                     <input placeholder="Please Enter Student Name" value={this.state.displayName}
-                     onChange={this.onChangeDisplayName}/>
+                     <input placeholder="Please Enter Student Name" value={this.state.displayStudentName}
+                     onChange={this.onChangeDisplayStudentName}/>
                 </div>
                  <div>
                     <label>Please Enter Course Name:</label>
-                    <input placeholder="Please Enter Course" />
+                    <input placeholder="Please Enter Course" value={this.state.displayCourseName}
+                    onChange={this.onChangeDisplayCourseName}/>
                 </div>
                 <div>
                    <label>Please Enter Specialization Name:</label>
-                  <input placeholder="Please Enter Specialization" />
+                  <input placeholder="Please Enter Specialization" value={this.state.displaySpecializationName} 
+                  onChange={this.onChangeDisplaySpecializationName}/>
                 </div>
                 <div>
                   <label>Please Enter Your Percentage:</label>

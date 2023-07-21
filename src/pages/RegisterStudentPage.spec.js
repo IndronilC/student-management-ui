@@ -86,17 +86,40 @@ describe('RegisterStudentPage',() => {
     });
 
     describe('interactions of components and user', () => {
-        it('sets displayname value into the student name place holder state', () => {
+        const changeEvent = (content) => {
+           return {
+             target: {
+              value: content
+            }
+          } 
+         };
+
+        it('sets displayname value into the student name place holder text', () => {
         const {queryByPlaceholderText} = render(<RegisterStudentPage />)
         const displayStudentNameInput = queryByPlaceholderText('Please Enter Student Name')
-        const changeEvent = {
-           target: {
-             value: 'Please Enter Student Name'
-           }
-        };
-        fireEvent.change(displayStudentNameInput, changeEvent)
+        
+        fireEvent.change(displayStudentNameInput, changeEvent('Please Enter Student Name'))
         expect(displayStudentNameInput).toHaveValue('Please Enter Student Name')
         });
+
+        it('sets displayname value into the course name place holder text', () => {
+            const {queryByPlaceholderText} = render(<RegisterStudentPage />)
+            const displayStudentCourseInput = queryByPlaceholderText('Please Enter Course')
+            
+            fireEvent.change(displayStudentCourseInput, changeEvent('Please Enter Course'))
+            expect(displayStudentCourseInput).toHaveValue('Please Enter Course')
+         });
+
+         it('sets displayname value into the specialization name place holder text', () => {
+            const {queryByPlaceholderText} = render(<RegisterStudentPage />)
+            const displaySpecializationInput = queryByPlaceholderText('Please Enter Specialization')
+            
+            fireEvent.change(displaySpecializationInput, changeEvent('Please Enter Specialization'))
+            expect(displaySpecializationInput).toHaveValue('Please Enter Specialization')
+         });
+    
+
+
     });
 
 });
