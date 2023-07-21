@@ -1,13 +1,21 @@
 import React from "react";
 
 export class RegisterStudentPage extends React.Component{
+    state = {
+        displayName: ''
+    };
+    onChangeDisplayName = (event) => {
+        const value = event.target.value;
+        this.setState({displayName: value});
+    };
     render(){
         return(
             <div>
                 <h1>Register Student</h1>
                 <div>
                      <label>Please Enter Student Name:</label>
-                     <input placeholder="Please Enter Student Name"/>
+                     <input placeholder="Please Enter Student Name" value={this.state.displayName}
+                     onChange={this.onChangeDisplayName}/>
                 </div>
                  <div>
                     <label>Please Enter Course Name:</label>

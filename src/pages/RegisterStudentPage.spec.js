@@ -1,5 +1,5 @@
 import React from 'react';
-import { getByText, render } from '@testing-library/react';
+import { fireEvent, getByText, render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { RegisterStudentPage } from './RegisterStudentPage';
 
@@ -83,11 +83,20 @@ describe('RegisterStudentPage',() => {
             expect(submitButton).toBeInTheDocument();
         });
 
-        
+    });
 
-        
-
-
+    describe('interactions of components and user', () => {
+        it('sets displayname value into the student name place holder state', () => {
+        const {queryByPlaceholderText} = render(<RegisterStudentPage />)
+        const displayStudentNameInput = queryByPlaceholderText('Please Enter Student Name')
+        const changeEvent = {
+           target: {
+             value: 'Please Enter Student Name'
+           }
+        };
+        fireEvent.change(displayStudentNameInput, changeEvent)
+        expect(displayStudentNameInput).toHaveValue('Please Enter Student Name')
+        });
     });
 
 });
