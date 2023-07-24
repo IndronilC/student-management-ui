@@ -33,6 +33,12 @@ export class RegisterStudentPage extends React.Component{
         const value = event.target.value;
         this.setState({displayDepartmentName: value});
     };
+    onClickRegisterNewStudent = (event) => {
+        if(this.props.actions){
+            this.props.actions.postRegisterNewStudent();
+        }    
+
+    }
     render(){
         return(
             <div>
@@ -63,7 +69,7 @@ export class RegisterStudentPage extends React.Component{
                    onChange={this.onChangeDisplayDepartmentname}/>
                 </div>
                 <div>
-                    <button> Register New Student </button>
+                    <button onClick={this.onClickRegisterNewStudent}> Register New Student </button>
                 </div>
             </div>
 
@@ -71,5 +77,15 @@ export class RegisterStudentPage extends React.Component{
         )
     }
 }
+
+RegisterStudentPage.defaultProps = {
+    actions: {
+        postRegisterNewStudent: () => {
+            new Promise((resolve, reject) => {
+                resolve({});
+            })
+        }
+    }
+};
 
 export default RegisterStudentPage;

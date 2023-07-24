@@ -120,18 +120,63 @@ describe('RegisterStudentPage',() => {
 
          it('sets displayname value into the percentage place holder text', () => {
             const {queryByPlaceholderText} = render(<RegisterStudentPage />)
-            const displayPercentage = queryByPlaceholderText('Please Enter Percentage')
+            const displayPercentageInput = queryByPlaceholderText('Please Enter Percentage')
             
-            fireEvent.change(displayPercentage, changeEvent('Please Enter Percentage'))
-            expect(displayPercentage).toHaveValue('Please Enter Percentage')
+            fireEvent.change(displayPercentageInput, changeEvent('Please Enter Percentage'))
+            expect(displayPercentageInput).toHaveValue('Please Enter Percentage')
          });
 
          it('sets displayname value into the department place holder text', () => {
             const {queryByPlaceholderText} = render(<RegisterStudentPage />)
-            const displayDepartmentName = queryByPlaceholderText('Please Enter Department Name')
+            const displayDepartmentNameInput = queryByPlaceholderText('Please Enter Department Name')
             
-            fireEvent.change(displayDepartmentName, changeEvent('Please Enter Department Name'))
-            expect(displayDepartmentName).toHaveValue('Please Enter Department Name')
+            fireEvent.change(displayDepartmentNameInput, changeEvent('Please Enter Department Name'))
+            expect(displayDepartmentNameInput).toHaveValue('Please Enter Department Name')
+         });
+
+         it('calls postRegisterNewStudent when fields are valid and actions are provided in props', () => {
+            const actions = {
+                postRegisterNewStudent: jest.fn().mockResolvedValueOnce({})
+            };
+            const {container, queryByPlaceholderText} = render (
+                <RegisterStudentPage actions = {actions} />
+            );
+
+            const displayStudentNameInput = queryByPlaceholderText('Please Enter Student Name');
+            const displayStudentCourseInput = queryByPlaceholderText('Please Enter Course');
+            const displaySpecializationInput = queryByPlaceholderText('Please Enter Specialization');
+            const displayPercentageInput = queryByPlaceholderText('Please Enter Percentage');
+            const displayDepartmentNameInput = queryByPlaceholderText('Please Enter Department Name');
+
+            fireEvent.change(displayStudentNameInput, changeEvent('Please Enter Student Name'));
+            fireEvent.change(displayStudentCourseInput, changeEvent('Please Enter Course'));
+            fireEvent.change(displaySpecializationInput, changeEvent('Please Enter Specialization'));
+            fireEvent.change(displayPercentageInput, changeEvent('Please Enter Percentage'));
+            fireEvent.change(displayDepartmentNameInput, changeEvent('Please Enter Department Name'));
+
+            const button = container.querySelector('button');
+            fireEvent.click(button);
+            expect(actions.postRegisterNewStudent).toHaveBeenCalledTimes(1);
+         });
+
+         it('calls postRegisterNewStudent when no exception or error is thrown when action does not have props', () => {
+            const {container, queryByPlaceholderText} = render (<RegisterStudentPage />);
+
+            const displayStudentNameInput = queryByPlaceholderText('Please Enter Student Name');
+            const displayStudentCourseInput = queryByPlaceholderText('Please Enter Course');
+            const displaySpecializationInput = queryByPlaceholderText('Please Enter Specialization');
+            const displayPercentageInput = queryByPlaceholderText('Please Enter Percentage');
+            const displayDepartmentNameInput = queryByPlaceholderText('Please Enter Department Name');
+
+            fireEvent.change(displayStudentNameInput, changeEvent('Please Enter Student Name'));
+            fireEvent.change(displayStudentCourseInput, changeEvent('Please Enter Course'));
+            fireEvent.change(displaySpecializationInput, changeEvent('Please Enter Specialization'));
+            fireEvent.change(displayPercentageInput, changeEvent('Please Enter Percentage'));
+            fireEvent.change(displayDepartmentNameInput, changeEvent('Please Enter Department Name'));
+
+            const button = container.querySelector('button');
+            expect(() => fireEvent.click(button)).not.toThrow();
+            
          });
     
     
