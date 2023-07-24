@@ -117,6 +117,23 @@ describe('RegisterStudentPage',() => {
             fireEvent.change(displaySpecializationInput, changeEvent('Please Enter Specialization'))
             expect(displaySpecializationInput).toHaveValue('Please Enter Specialization')
          });
+
+         it('sets displayname value into the percentage place holder text', () => {
+            const {queryByPlaceholderText} = render(<RegisterStudentPage />)
+            const displayPercentage = queryByPlaceholderText('Please Enter Percentage')
+            
+            fireEvent.change(displayPercentage, changeEvent('Please Enter Percentage'))
+            expect(displayPercentage).toHaveValue('Please Enter Percentage')
+         });
+
+         it('sets displayname value into the department place holder text', () => {
+            const {queryByPlaceholderText} = render(<RegisterStudentPage />)
+            const displayDepartmentName = queryByPlaceholderText('Please Enter Department Name')
+            
+            fireEvent.change(displayDepartmentName, changeEvent('Please Enter Department Name'))
+            expect(displayDepartmentName).toHaveValue('Please Enter Department Name')
+         });
+    
     
 
 

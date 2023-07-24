@@ -4,7 +4,9 @@ export class RegisterStudentPage extends React.Component{
     state = {
         displayStudentName: '',
         displayCourseName: '',
-        displaySpecializationName: ''
+        displaySpecializationName: '',
+        displayPercentage: '',
+        displayDepartmentName: ''
 
     };
     onChangeDisplayStudentName = (event) => {
@@ -20,6 +22,16 @@ export class RegisterStudentPage extends React.Component{
     onChangeDisplaySpecializationName = (event) => {
         const value = event.target.value;
         this.setState({displaySpecializationName: value});
+    };
+
+    onChangeDisplaPercentage = (event) => {
+        const value = event.target.value;
+        this.setState({displayPercentage: value});
+    };
+
+    onChangeDisplayDepartmentname = (event) => {
+        const value = event.target.value;
+        this.setState({displayDepartmentName: value});
     };
     render(){
         return(
@@ -42,11 +54,13 @@ export class RegisterStudentPage extends React.Component{
                 </div>
                 <div>
                   <label>Please Enter Your Percentage:</label>
-                  <input placeholder="Please Enter Percentage" />
+                  <input placeholder="Please Enter Percentage" value={this.state.displayPercentage}
+                  onChange={this.onChangeDisplaPercentage}/>
                 </div>
                 <div>
                     <label>Please Enter Your Department:</label> 
-                   <input placeholder="Please Enter Department Name" />
+                   <input placeholder="Please Enter Department Name" value={this.state.displayDepartmentName}
+                   onChange={this.onChangeDisplayDepartmentname}/>
                 </div>
                 <div>
                     <button> Register New Student </button>
