@@ -34,42 +34,46 @@ export class RegisterStudentPage extends React.Component{
         this.setState({displayDepartmentName: value});
     };
     onClickRegisterNewStudent = (event) => {
-        if(this.props.actions){
-            this.props.actions.postRegisterNewStudent();
-        }    
-
+        const student = {
+            displayStudentName: this.state.displayStudentName,
+            displayCourseName: this.state.displayCourseName,
+            displaySpecializationName: this.state.displaySpecializationName,
+            displayPercentage: this.state.displayPercentage,
+            displayDepartmentName: this.state.displayDepartmentName
+        }
+      this.props.actions.postRegisterNewStudent(student);
     }
     render(){
         return(
-            <div>
-                <h1>Register Student</h1>
-                <div>
-                     <label>Please Enter Student Name:</label>
-                     <input placeholder="Please Enter Student Name" value={this.state.displayStudentName}
+            <div className="container">
+                <h1 className="text-center">Register Student</h1>
+                <div className="col-12 mb-3">
+                     <label> Please Enter Student Name:</label>
+                     <input className="form-control" placeholder="Please Enter Student Name" value={this.state.displayStudentName}
                      onChange={this.onChangeDisplayStudentName}/>
                 </div>
-                 <div>
+                 <div className="col-12 mb-3">
                     <label>Please Enter Course Name:</label>
-                    <input placeholder="Please Enter Course" value={this.state.displayCourseName}
+                    <input className="form-control" placeholder="Please Enter Course" value={this.state.displayCourseName}
                     onChange={this.onChangeDisplayCourseName}/>
                 </div>
-                <div>
-                   <label>Please Enter Specialization Name:</label>
-                  <input placeholder="Please Enter Specialization" value={this.state.displaySpecializationName} 
+                <div className="col-12 mb-3">
+                <label>Please Enter Specialization Name:</label>
+                  <input className="form-control" placeholder="Please Enter Specialization" value={this.state.displaySpecializationName} 
                   onChange={this.onChangeDisplaySpecializationName}/>
                 </div>
-                <div>
+                <div className="col-12 mb-3">
                   <label>Please Enter Your Percentage:</label>
-                  <input placeholder="Please Enter Percentage" value={this.state.displayPercentage}
+                  <input className="form-control" placeholder="Please Enter Percentage" value={this.state.displayPercentage}
                   onChange={this.onChangeDisplaPercentage}/>
                 </div>
-                <div>
+                <div className="col-12 mb-3">
                     <label>Please Enter Your Department:</label> 
-                   <input placeholder="Please Enter Department Name" value={this.state.displayDepartmentName}
+                   <input className= "form-control" placeholder="Please Enter Department Name" value={this.state.displayDepartmentName}
                    onChange={this.onChangeDisplayDepartmentname}/>
                 </div>
-                <div>
-                    <button onClick={this.onClickRegisterNewStudent}> Register New Student </button>
+                <div className="text-center">
+                    <button className="btn btn-primary" onClick={this.onClickRegisterNewStudent}> Register New Student </button>
                 </div>
             </div>
 

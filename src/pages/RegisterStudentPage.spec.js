@@ -94,6 +94,31 @@ describe('RegisterStudentPage',() => {
           } 
          };
 
+         let button, displayStudentNameInput, displayStudentCourseInput, 
+         displaySpecializationInput, displayPercentageInput, displayDepartmentNameInput;
+
+         const setUpForSubmit = (props) => {
+            const rendered = render (
+                <RegisterStudentPage {...props} />
+            );
+
+            const {container, queryByPlaceholderText} = rendered;
+
+            displayStudentNameInput = queryByPlaceholderText('Please Enter Student Name');
+            displayStudentCourseInput = queryByPlaceholderText('Please Enter Course');
+            displaySpecializationInput = queryByPlaceholderText('Please Enter Specialization');
+            displayPercentageInput = queryByPlaceholderText('Please Enter Percentage');
+            displayDepartmentNameInput = queryByPlaceholderText('Please Enter Department Name');
+
+            fireEvent.change(displayStudentNameInput, changeEvent('Please Enter Student Name'));
+            fireEvent.change(displayStudentCourseInput, changeEvent('Please Enter Course'));
+            fireEvent.change(displaySpecializationInput, changeEvent('Please Enter Specialization'));
+            fireEvent.change(displayPercentageInput, changeEvent('Please Enter Percentage'));
+            fireEvent.change(displayDepartmentNameInput, changeEvent('Please Enter Department Name'));
+            button = container.querySelector('button');
+ 
+         };
+
         it('sets displayname value into the student name place holder text', () => {
         const {queryByPlaceholderText} = render(<RegisterStudentPage />)
         const displayStudentNameInput = queryByPlaceholderText('Please Enter Student Name')
@@ -138,45 +163,34 @@ describe('RegisterStudentPage',() => {
             const actions = {
                 postRegisterNewStudent: jest.fn().mockResolvedValueOnce({})
             };
-            const {container, queryByPlaceholderText} = render (
-                <RegisterStudentPage actions = {actions} />
-            );
-
-            const displayStudentNameInput = queryByPlaceholderText('Please Enter Student Name');
-            const displayStudentCourseInput = queryByPlaceholderText('Please Enter Course');
-            const displaySpecializationInput = queryByPlaceholderText('Please Enter Specialization');
-            const displayPercentageInput = queryByPlaceholderText('Please Enter Percentage');
-            const displayDepartmentNameInput = queryByPlaceholderText('Please Enter Department Name');
-
-            fireEvent.change(displayStudentNameInput, changeEvent('Please Enter Student Name'));
-            fireEvent.change(displayStudentCourseInput, changeEvent('Please Enter Course'));
-            fireEvent.change(displaySpecializationInput, changeEvent('Please Enter Specialization'));
-            fireEvent.change(displayPercentageInput, changeEvent('Please Enter Percentage'));
-            fireEvent.change(displayDepartmentNameInput, changeEvent('Please Enter Department Name'));
-
-            const button = container.querySelector('button');
+            setUpForSubmit({actions})
+           
             fireEvent.click(button);
             expect(actions.postRegisterNewStudent).toHaveBeenCalledTimes(1);
          });
 
          it('calls postRegisterNewStudent when no exception or error is thrown when action does not have props', () => {
-            const {container, queryByPlaceholderText} = render (<RegisterStudentPage />);
-
-            const displayStudentNameInput = queryByPlaceholderText('Please Enter Student Name');
-            const displayStudentCourseInput = queryByPlaceholderText('Please Enter Course');
-            const displaySpecializationInput = queryByPlaceholderText('Please Enter Specialization');
-            const displayPercentageInput = queryByPlaceholderText('Please Enter Percentage');
-            const displayDepartmentNameInput = queryByPlaceholderText('Please Enter Department Name');
-
-            fireEvent.change(displayStudentNameInput, changeEvent('Please Enter Student Name'));
-            fireEvent.change(displayStudentCourseInput, changeEvent('Please Enter Course'));
-            fireEvent.change(displaySpecializationInput, changeEvent('Please Enter Specialization'));
-            fireEvent.change(displayPercentageInput, changeEvent('Please Enter Percentage'));
-            fireEvent.change(displayDepartmentNameInput, changeEvent('Please Enter Department Name'));
-
-            const button = container.querySelector('button');
+            setUpForSubmit();
             expect(() => fireEvent.click(button)).not.toThrow();
             
+         });
+
+         it('calls postRegisterNewStudent when data for new student has been provided', () => {
+            const actions = {
+                postRegisterNewStudent: jest.fn().mockResolvedValueOnce({})
+            };
+            setUpForSubmit({actions})
+            const expectedNewStudentObject = {
+                displayStudentName: 'Please Enter Student Name',
+                displayCourseName: 'Please Enter Course',
+                displaySpecializationName: 'Please Enter Specialization',
+                displayPercentage: 'Please Enter Percentage',
+                displayDepartmentName: 'Please Enter Department Name'
+
+            }
+           
+            fireEvent.click(button);
+            expect(actions.postRegisterNewStudent).toHaveBeenCalledWith(expectedNewStudentObject);
          });
     
     
