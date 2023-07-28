@@ -94,8 +94,8 @@ describe('RegisterStudentPage',() => {
           } 
          };
 
-         let button, displayStudentNameInput, displayStudentCourseInput, 
-         displaySpecializationInput, displayPercentageInput, displayDepartmentNameInput;
+         let button, student_name, course, 
+         specialization, percentage_aggregate, department_name;
 
          const setUpForSubmit = (props) => {
             const rendered = render (
@@ -104,17 +104,17 @@ describe('RegisterStudentPage',() => {
 
             const {container, queryByPlaceholderText} = rendered;
 
-            displayStudentNameInput = queryByPlaceholderText('Please Enter Student Name');
-            displayStudentCourseInput = queryByPlaceholderText('Please Enter Course');
-            displaySpecializationInput = queryByPlaceholderText('Please Enter Specialization');
-            displayPercentageInput = queryByPlaceholderText('Please Enter Percentage');
-            displayDepartmentNameInput = queryByPlaceholderText('Please Enter Department Name');
+            student_name = queryByPlaceholderText('Please Enter Student Name');
+            course = queryByPlaceholderText('Please Enter Course');
+            specialization = queryByPlaceholderText('Please Enter Specialization');
+            percentage_aggregate = queryByPlaceholderText('Please Enter Percentage');
+            department_name = queryByPlaceholderText('Please Enter Department Name');
 
-            fireEvent.change(displayStudentNameInput, changeEvent('Please Enter Student Name'));
-            fireEvent.change(displayStudentCourseInput, changeEvent('Please Enter Course'));
-            fireEvent.change(displaySpecializationInput, changeEvent('Please Enter Specialization'));
-            fireEvent.change(displayPercentageInput, changeEvent('Please Enter Percentage'));
-            fireEvent.change(displayDepartmentNameInput, changeEvent('Please Enter Department Name'));
+            fireEvent.change(student_name, changeEvent('Please Enter Student Name'));
+            fireEvent.change(course, changeEvent('Please Enter Course'));
+            fireEvent.change(specialization, changeEvent('Please Enter Specialization'));
+            fireEvent.change(percentage_aggregate, changeEvent('Please Enter Percentage'));
+            fireEvent.change(department_name, changeEvent('Please Enter Department Name'));
             button = container.querySelector('button');
  
          };
@@ -181,11 +181,11 @@ describe('RegisterStudentPage',() => {
             };
             setUpForSubmit({actions})
             const expectedNewStudentObject = {
-                displayStudentName: 'Please Enter Student Name',
-                displayCourseName: 'Please Enter Course',
-                displaySpecializationName: 'Please Enter Specialization',
-                displayPercentage: 'Please Enter Percentage',
-                displayDepartmentName: 'Please Enter Department Name'
+                student_name: 'Please Enter Student Name',
+                course: 'Please Enter Course',
+                specialization: 'Please Enter Specialization',
+                percentage_aggregate: 'Please Enter Percentage',
+                department_request: {department_name: 'Please Enter Department Name'}
 
             }
            
