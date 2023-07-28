@@ -1,13 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import RegisterStudentPage from './pages/RegisterStudentPage';
 import reportWebVitals from './reportWebVitals';
+import RegisterStudentPage from './pages/RegisterStudentPage';
+import * as apiCallsStudentRegistration from './api/apiCallsStudentRegistration';
+
+
+const actions = {
+  postRegisterNewStudent: apiCallsStudentRegistration.newStudentRegistration
+};
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <RegisterStudentPage />
+    <RegisterStudentPage actions={actions}/>
   </React.StrictMode>
 );
 
