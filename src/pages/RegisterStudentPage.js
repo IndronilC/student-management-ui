@@ -6,8 +6,8 @@ export class RegisterStudentPage extends React.Component{
         course: '',
         specialization: '',
         percentage_aggregate: '',
-        department_name: ''
-
+        department_name: '',
+        pendingApiCalls: false
     };
     onChangeDisplayStudentName = (event) => {
         const value = event.target.value;
@@ -40,7 +40,8 @@ export class RegisterStudentPage extends React.Component{
             specialization: this.state.specialization,
             percentage_aggregate: this.state.percentage_aggregate,
             department_request: {department_name: this.state.department_name}
-        }
+        };
+        this.setState({pendingApiCalls: true});
       this.props.actions.postRegisterNewStudent(student);
     }
     render(){
@@ -73,7 +74,13 @@ export class RegisterStudentPage extends React.Component{
                    onChange={this.onChangeDisplayDepartmentname}/>
                 </div>
                 <div className="text-center">
-                    <button className="btn btn-primary" onClick={this.onClickRegisterNewStudent}> Register New Student </button>
+                    <button className="btn btn-primary" onClick={this.onClickRegisterNewStudent}
+                    disabled={this.state.pendingApiCalls}> 
+                    {this.state.pendingApiCalls && (<div className="spinner-border" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </div>)}
+
+                    Register New Student </button>
                 </div>
             </div>
 

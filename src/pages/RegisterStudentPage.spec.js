@@ -1,6 +1,5 @@
 import React from 'react';
-import { fireEvent, getByText, render } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
+import { fireEvent, getByText, render, waitForElementToBeRemoved} from '@testing-library/react';
 import { RegisterStudentPage } from './RegisterStudentPage';
 
 describe('RegisterStudentPage',() => {
@@ -94,6 +93,16 @@ describe('RegisterStudentPage',() => {
           } 
          };
 
+         const mockAsyncDelayed = () => {
+            return jest.fn().mockImplementation(() => {
+              return new Promise((resolve, reject) => {
+                  setTimeout(() => {
+                      resolve({});
+                      }, 300)    
+                  })
+              })
+          };  
+
          let button, student_name, course, 
          specialization, percentage_aggregate, department_name;
 
@@ -116,6 +125,7 @@ describe('RegisterStudentPage',() => {
             fireEvent.change(percentage_aggregate, changeEvent('Please Enter Percentage'));
             fireEvent.change(department_name, changeEvent('Please Enter Department Name'));
             button = container.querySelector('button');
+            return rendered;
  
          };
 
@@ -192,6 +202,32 @@ describe('RegisterStudentPage',() => {
             fireEvent.click(button);
             expect(actions.postRegisterNewStudent).toHaveBeenCalledWith(expectedNewStudentObject);
          });
+
+         it('does not allow Api to call the sign up button when there is a API Call already present', () => {
+            const actions = {
+                postRegisterNewStudent: mockAsyncDelayed()
+                };            
+            setUpForSubmit({actions})
+            fireEvent.click(button);
+            
+            fireEvent.click(button);
+            expect(actions.postRegisterNewStudent).toHaveBeenCalledTimes(1);
+         });
+
+         it('shows a spinner component when the API Call is being made', () => {
+            const actions = {
+                postRegisterNewStudent: mockAsyncDelayed(),
+                };
+
+               
+            const {queryByText} = setUpForSubmit({actions});
+            fireEvent.click(button);
+            
+            const spinner = queryByText("Loading...");
+            
+            expect(queryByText("Loading...")).toBeInTheDocument();
+         });
+
     
     
 
