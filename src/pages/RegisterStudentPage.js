@@ -41,8 +41,16 @@ export class RegisterStudentPage extends React.Component{
             percentage_aggregate: this.state.percentage_aggregate,
             department_request: {department_name: this.state.department_name}
         };
-        this.setState({pendingApiCalls: true});
-      this.props.actions.postRegisterNewStudent(student);
+        
+        if(this.props.actions){
+            this.setState({pendingApiCalls: true});
+            this.props.actions.postRegisterNewStudent(student).then((response) => {
+                this.setState({pendingApiCalls: false})
+            });
+
+        }
+        
+    
     }
     render(){
         return(
@@ -76,7 +84,7 @@ export class RegisterStudentPage extends React.Component{
                 <div className="text-center">
                     <button className="btn btn-primary" onClick={this.onClickRegisterNewStudent}
                     disabled={this.state.pendingApiCalls}> 
-                    {this.state.pendingApiCalls && (<div className="spinner-border" role="status">
+                    {this.state.pendingApiCalls && (<div className="spinner-border text-light spinner-border-sm mr-sm-1" role="status">
                         <span className="visually-hidden">Loading...</span>
                     </div>)}
 
@@ -91,12 +99,12 @@ export class RegisterStudentPage extends React.Component{
 
 RegisterStudentPage.defaultProps = {
     actions: {
-        postRegisterNewStudent: () => {
+        postRegisterNewStudent: () =>
             new Promise((resolve, reject) => {
                 resolve({});
             })
         }
-    }
-};
+    };
+
 
 export default RegisterStudentPage;

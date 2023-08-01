@@ -1,5 +1,6 @@
 import React from 'react';
-import { fireEvent, getByText, render, waitForElementToBeRemoved} from '@testing-library/react';
+import { fireEvent, getByText, render, waitForDomChange} from '@testing-library/react';
+import '@testing-library/jest-dom/extend-expect';
 import { RegisterStudentPage } from './RegisterStudentPage';
 
 describe('RegisterStudentPage',() => {
@@ -228,9 +229,17 @@ describe('RegisterStudentPage',() => {
             expect(queryByText("Loading...")).toBeInTheDocument();
          });
 
-    
-    
+         it('hides spinner after api call finishes successfully', async () => {
+            const actions = {
+              postRegisterNewStudent: mockAsyncDelayed(),
+            };
+            const { queryByText } = setUpForSubmit({ actions });
+            fireEvent.click(button);
 
+            await waitForDomChange();
+            const spinner = queryByText('Loading...');
+            expect(spinner).not.toBeInTheDocument();
+          });
 
     });
 
